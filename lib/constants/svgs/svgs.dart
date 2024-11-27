@@ -2,36 +2,33 @@
 class Svgs {
   Svgs._();
 
-  static const String resourceSvgsComment = "assets/svgs/comment.svg";
+  static const String comment = "assets/svgs/comment.svg";
 
-  static const String resourceSvgsEmoji = "assets/svgs/emoji.svg";
+  static const String emoji = "assets/svgs/emoji.svg";
 
-  static const String resourceSvgsGallery = "assets/svgs/gallery.svg";
+  static const String gallery = "assets/svgs/gallery.svg";
 
-  static const String resourceSvgsGif = "assets/svgs/gif.svg";
+  static const String gif = "assets/svgs/gif.svg";
 
-  static const String resourceSvgsHomeFilled = "assets/svgs/home_filled.svg";
+  static const String homeFilled = "assets/svgs/home_filled.svg";
 
-  static const String resourceSvgsHomeOutlined =
-      "assets/svgs/home_outlined.svg";
+  static const String homeOutlined = "assets/svgs/home_outlined.svg";
 
-  static const String resourceSvgsLikeFilled = "assets/svgs/like_filled.svg";
+  static const String likeFilled = "assets/svgs/like_filled.svg";
 
-  static const String resourceSvgsLikeOutlined =
-      "assets/svgs/like_outlined.svg";
+  static const String likeOutlined = "assets/svgs/like_outlined.svg";
 
-  static const String resourceSvgsNotifFilled = "assets/svgs/notif_filled.svg";
+  static const String notifFilled = "assets/svgs/notif_filled.svg";
 
-  static const String resourceSvgsNotifOutlined =
-      "assets/svgs/notif_outlined.svg";
+  static const String notifOutlined = "assets/svgs/notif_outlined.svg";
 
-  static const String resourceSvgsRetweet = "assets/svgs/retweet.svg";
+  static const String retweet = "assets/svgs/retweet.svg";
 
-  static const String resourceSvgsSearch = "assets/svgs/search.svg";
+  static const String search = "assets/svgs/search.svg";
 
-  static const String resourceSvgsTwitterLogo = "assets/svgs/twitter_logo.svg";
+  static const String twitterLogo = "assets/svgs/twitter_logo.svg";
 
-  static const String resourceSvgsVerified = "assets/svgs/verified.svg";
+  static const String erified = "assets/svgs/verified.svg";
 
-  static const String resourceSvgsViews = "assets/svgs/views.svg";
+  static const String views = "assets/svgs/views.svg";
 }
