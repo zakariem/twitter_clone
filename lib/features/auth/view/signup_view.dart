@@ -2,20 +2,23 @@ import 'package:appwrite_toturial/features/auth/widgets/auth_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common/rounded_small_button.dart';
+import 'login_view.dart';
+
+import '../../../common/common.dart';
 import '../../../constants/constants.dart';
 import '../../../theme/theme.dart';
-import 'signup_view.dart';
 
-class LoginView extends StatefulWidget {
-  static route() => MaterialPageRoute(builder: (context) => const LoginView());
-  const LoginView({super.key});
+class SignUpView extends StatefulWidget {
+  static route() => MaterialPageRoute(
+        builder: (context) => const SignUpView(),
+      );
+  const SignUpView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SignUpView> createState() => _SignUpViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _SignUpViewState extends State<SignUpView> {
   final appBar = UiContants.appBar();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -61,24 +64,23 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(height: 40),
                 RichText(
                   text: TextSpan(
-                    text: "Don't have an account?",
+                    text: "Already have an account?",
                     style: const TextStyle(
                       fontSize: 16,
                       color: Pallete.greyColor,
                     ),
                     children: [
                       TextSpan(
-                        text: ' Sign up',
+                        text: ' Login',
                         style: const TextStyle(
                           color: Pallete.blueColor,
                           fontSize: 16,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Navigator.pushAndRemoveUntil(
+                            Navigator.push(
                               context,
-                              SignUpView.route(),
-                              (route) => false,
+                              LoginView.route(),
                             );
                           },
                       ),
