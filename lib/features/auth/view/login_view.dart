@@ -1,21 +1,22 @@
 import 'package:appwrite_toturial/features/auth/widgets/auth_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../common/rounded_small_button.dart';
+import '../../../common/common.dart';
 import '../../../constants/constants.dart';
 import '../../../theme/theme.dart';
 import 'signup_view.dart';
 
-class LoginView extends StatefulWidget {
+class LoginView extends ConsumerStatefulWidget {
   static route() => MaterialPageRoute(builder: (context) => const LoginView());
   const LoginView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  ConsumerState<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginViewState extends ConsumerState<LoginView> {
   final appBar = UiContants.appBar();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
