@@ -17,6 +17,8 @@ abstract class IAuthApi {
     required String email,
     required String password,
   });
+
+  Future<User?> currentUser();
 }
 
 class AuthApi implements IAuthApi {
@@ -58,6 +60,17 @@ class AuthApi implements IAuthApi {
       return left(
         Failure(message: e.message.toString(), stackTrace: stackTrace),
       );
+    }
+  }
+
+  @override
+  Future<User?> currentUser() async {
+    try {
+      return await _account.get();
+    } on AppwriteException {
+      return null;
+    } catch (e) {
+      return null;
     }
   }
 }
