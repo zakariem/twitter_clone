@@ -6,6 +6,8 @@ class AuthField extends StatelessWidget {
   final String hintText;
   final String? Function(String?)? validator;
   final bool obscureText;
+  final bool isPassword;
+  final VoidCallback? toggleVisibility;
 
   const AuthField({
     super.key,
@@ -13,6 +15,8 @@ class AuthField extends StatelessWidget {
     required this.hintText,
     this.validator,
     this.obscureText = false,
+    this.isPassword = false,
+    this.toggleVisibility,
   });
 
   @override
@@ -22,6 +26,14 @@ class AuthField extends StatelessWidget {
       obscureText: obscureText,
       validator: validator,
       decoration: InputDecoration(
+        suffixIcon: isPassword
+            ? IconButton(
+                onPressed: toggleVisibility,
+                icon: Icon(
+                  obscureText ? Icons.visibility_off : Icons.visibility,
+                ),
+              )
+            : null,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
           borderSide: const BorderSide(

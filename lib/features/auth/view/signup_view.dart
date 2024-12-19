@@ -14,6 +14,7 @@ class SignUpView extends ConsumerStatefulWidget {
   static route() => MaterialPageRoute(
         builder: (context) => const SignUpView(),
       );
+
   const SignUpView({super.key});
 
   @override
@@ -26,6 +27,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
   final TextEditingController passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  bool _isPasswordObscure = true;
 
   @override
   void dispose() {
@@ -44,6 +46,13 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
     }
   }
 
+  // Toggle password visibility
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isPasswordObscure = !_isPasswordObscure;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final isLoading = ref.watch(authControllerProvider);
@@ -59,22 +68,24 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        // email
+                        // Email field
                         AuthField(
                           controller: emailController,
                           hintText: 'Email',
                           validator: ValidationUtils.validateEmail,
                         ),
                         const SizedBox(height: 25),
-                        // password
+                        // Password field
                         AuthField(
                           controller: passwordController,
                           hintText: 'Password',
-                          obscureText: true,
+                          obscureText: _isPasswordObscure,
+                          isPassword: true,
+                          toggleVisibility: _togglePasswordVisibility,
                           validator: ValidationUtils.validatePassword,
                         ),
                         const SizedBox(height: 40),
-                        // login button
+                        // Sign Up button
                         Align(
                           alignment: Alignment.topRight,
                           child: RoundedSmallButton(
@@ -82,8 +93,8 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                             label: 'Done',
                           ),
                         ),
-                        // or signup
                         const SizedBox(height: 40),
+                        // Sign In Link
                         RichText(
                           text: TextSpan(
                             text: "Already have an account?",
