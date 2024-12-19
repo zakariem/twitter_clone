@@ -8,6 +8,7 @@ class AuthField extends StatelessWidget {
   final bool obscureText;
   final bool isPassword;
   final VoidCallback? toggleVisibility;
+  final TextInputAction textInputAction;
 
   const AuthField({
     super.key,
@@ -17,11 +18,13 @@ class AuthField extends StatelessWidget {
     this.obscureText = false,
     this.isPassword = false,
     this.toggleVisibility,
+    this.textInputAction = TextInputAction.done,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      textInputAction: textInputAction,
       controller: controller,
       obscureText: obscureText,
       validator: validator,

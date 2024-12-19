@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../common/common.dart';
 import '../../../constants/constants.dart';
 import '../../../theme/theme.dart';
+import '../controller/auth_controller.dart';
 import 'signup_view.dart';
 
 class LoginView extends ConsumerStatefulWidget {
@@ -21,6 +22,9 @@ class _LoginViewState extends ConsumerState<LoginView> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+  bool _isPasswordObscure = true;
+
   @override
   void dispose() {
     super.dispose();
@@ -28,69 +32,98 @@ class _LoginViewState extends ConsumerState<LoginView> {
     passwordController.dispose();
   }
 
+  void onLogin() {
+    if (_formKey.currentState!.validate()) {
+      ref.read(authControllerProvider.notifier).login(
+            email: emailController.text,
+            password: passwordController.text,
+            context: context,
+          );
+    }
+  }
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isPasswordObscure = !_isPasswordObscure;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isLoading = ref.watch(authControllerProvider);
     return Scaffold(
       appBar: appBar,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                // email
-                AuthField(
-                  controller: emailController,
-                  hintText: 'Email',
-                ),
-                const SizedBox(height: 25),
-                // password
-                AuthField(
-                  controller: passwordController,
-                  hintText: 'Password',
-                ),
-                const SizedBox(height: 40),
-                // login button
-                Align(
-                  alignment: Alignment.topRight,
-                  child: RoundedSmallButton(
-                    onTap: () {},
-                    label: 'Done',
-                  ),
-                ),
-                // or signup
-                const SizedBox(height: 40),
-                RichText(
-                  text: TextSpan(
-                    text: "Don't have an account?",
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Pallete.greyColor,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: ' Sign up',
-                        style: const TextStyle(
-                          color: Pallete.blueColor,
-                          fontSize: 16,
+      resizeToAvoidBottomInset: false,
+      body: isLoading
+          ? const Loader()
+          : Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        // Email field
+                        AuthField(
+                          controller: emailController,
+                          hintText: 'Email',
+                          validator: ValidationUtils.validateEmail,
+                          textInputAction: TextInputAction.next,
                         ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              SignUpView.route(),
-                              (route) => false,
-                            );
-                          },
-                      ),
-                    ],
+                        const SizedBox(height: 25),
+                        // Password field
+                        AuthField(
+                          controller: passwordController,
+                          hintText: 'Password',
+                          obscureText: _isPasswordObscure,
+                          isPassword: true,
+                          toggleVisibility: _togglePasswordVisibility,
+                          validator: ValidationUtils.validatePassword,
+                        ),
+                        const SizedBox(height: 40),
+                        // Login button
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: RoundedSmallButton(
+                            onTap: onLogin,
+                            label: 'Done',
+                          ),
+                        ),
+                        const SizedBox(height: 40),
+                        // Navigate to Sign Up
+                        RichText(
+                          text: TextSpan(
+                            text: "Don't have an account?",
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Pallete.greyColor,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: ' Sign up',
+                                style: const TextStyle(
+                                  color: Pallete.blueColor,
+                                  fontSize: 16,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      SignUpView.route(),
+                                      (route) => false,
+                                    );
+                                  },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

@@ -13,7 +13,7 @@ abstract class IAuthApi {
     required String password,
   });
 
-  FutureEither<User> login({
+  FutureEither<Session> login({
     required String email,
     required String password,
   });
@@ -44,10 +44,20 @@ class AuthApi implements IAuthApi {
   }
 
   @override
-  FutureEither<User> login({
+  FutureEither<Session> login({
     required String email,
     required String password,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    try {
+      final session = await _account.createEmailPasswordSession(
+        email: email,
+        password: password,
+      );
+      return right(session);
+    } on AppwriteException catch (e, stackTrace) {
+      return left(
+        Failure(message: e.message.toString(), stackTrace: stackTrace),
+      );
+    }
   }
 }

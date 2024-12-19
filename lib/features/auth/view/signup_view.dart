@@ -46,7 +46,6 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
     }
   }
 
-  // Toggle password visibility
   void _togglePasswordVisibility() {
     setState(() {
       _isPasswordObscure = !_isPasswordObscure;
@@ -58,6 +57,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
     final isLoading = ref.watch(authControllerProvider);
     return Scaffold(
       appBar: appBar,
+      resizeToAvoidBottomInset: false,
       body: isLoading
           ? const Loader()
           : Center(
@@ -68,14 +68,13 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        // Email field
                         AuthField(
                           controller: emailController,
                           hintText: 'Email',
                           validator: ValidationUtils.validateEmail,
+                          textInputAction: TextInputAction.next,
                         ),
                         const SizedBox(height: 25),
-                        // Password field
                         AuthField(
                           controller: passwordController,
                           hintText: 'Password',
@@ -85,7 +84,6 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                           validator: ValidationUtils.validatePassword,
                         ),
                         const SizedBox(height: 40),
-                        // Sign Up button
                         Align(
                           alignment: Alignment.topRight,
                           child: RoundedSmallButton(
@@ -94,7 +92,6 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                           ),
                         ),
                         const SizedBox(height: 40),
-                        // Sign In Link
                         RichText(
                           text: TextSpan(
                             text: "Already have an account?",
