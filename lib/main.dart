@@ -1,5 +1,4 @@
 import 'package:appwrite_toturial/common/common.dart';
-import 'package:appwrite_toturial/common/error_page.dart';
 import 'package:appwrite_toturial/features/auth/controller/auth_controller.dart';
 import 'package:appwrite_toturial/features/auth/view/signup_view.dart';
 import 'package:flutter/material.dart';
